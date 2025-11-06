@@ -9,8 +9,8 @@ def get_sequencer(
     events: int,
     threads: int,
     tp: Path,
-    decorators: list[object],
-) -> acts.examples.Sequencer:
+#    decorators: list[object],
+    ): 
     sequencer = acts.examples.Sequencer(
         skip=skip,
         events=events,
@@ -20,7 +20,7 @@ def get_sequencer(
     )
     output_files.append({"file": "timing.csv"})
 
-    for decorator in decorators:
-        sequencer.addContextDecorator(decorator)
+ #   for decorator in decorators:
+ #       sequencer.addContextDecorator(decorator)
 
     return sequencer
