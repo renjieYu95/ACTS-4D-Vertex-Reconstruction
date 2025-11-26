@@ -8,7 +8,7 @@ import awkward as ak
 import scipy.stats
 import matplotlib.pyplot as plt
 
-from labels import split_event_sim_label, get_event_details
+from labels import  get_event_details
 from stats import robust_gauss_fit
 
 residuals = [
