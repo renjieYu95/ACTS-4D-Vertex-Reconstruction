@@ -35,7 +35,7 @@ for input in args.inputs:
         {
             "n": n,
             "splitting_ratio": np.sum(data["nRecoVtx"] > data["nTrueVtx"])
-            / len(vertexing),
+            / len(data),
         }
     )
 
