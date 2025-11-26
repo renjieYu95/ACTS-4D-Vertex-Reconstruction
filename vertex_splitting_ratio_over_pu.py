@@ -23,10 +23,10 @@ args = parser.parse_args()
 result = {}
 
 for input in args.inputs:
-    event_type, event_details = get_event_details(Path(input).parent.name)
-    n = event_details["n"]
+    event_type, event_details = get_event_details(Path(input).parent.parent.name)
+    n = event_details["pu"]
   
-   data = uproot.open(input)["vertexing"].arrays(columns, library="pd")
+    data = uproot.open(input)["vertexing"].arrays(columns, library="pd")
 
     if event_type not in result:
         result[event_type] = []
@@ -34,7 +34,7 @@ for input in args.inputs:
     result[event_type].append(
         {
             "n": n,
-            "splitting_ratio": np.sum(vertexing["nRecoVtx"] > vertexing["nTrueVtx"])
+            "splitting_ratio": np.sum(data["nRecoVtx"] > data["nTrueVtx"])
             / len(vertexing),
         }
     )
