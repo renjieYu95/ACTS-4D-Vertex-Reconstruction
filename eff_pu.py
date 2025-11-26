@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 # 这行代码引用了一个自定义模块 mycommon.labels。
 # 它的作用是从文件路径字符串（如 ".../ttbar_pu200/..."）中提取信息。
 # 如果你没有这个 python 文件，脚本会报错。你需要自己写一个简单的替换函数。
-# from mycommon.labels import split_event_sim_label, get_event_details
+from mycommon.labels import  get_event_details
 
 # --- 定义要读取的 TTree 分支 (Branches) ---
 columns = [
@@ -52,10 +52,10 @@ assert (
 
 # --- 提取元数据 ---
 # 获取第一个文件所在的父目录名（例如 "ttbar_pu10"）
-1event_sim_label = Path(args.inputs_wot[0]).parent.name
+event_label = Path(args.inputs_wot[0]).parent.parent.name
 # 使用自定义函数解析标签，获取事件类型（如 ttbar）
-1event_label, simulation_label = split_event_sim_label(event_sim_label)
-1event_type, _ = get_event_details(event_label)
+#event_label, simulation_label = split_event_sim_label(event_sim_label)
+event_type, _ = get_event_details(event_label)
 
 # --- 组织输入数据 ---
 # 将命令行参数映射到一个字典中，方便后面循环处理
@@ -82,9 +82,9 @@ for input_type, inputs_list in inputs.items():
     for input in inputs_list:
         # 1. 解析当前文件的 PU 值
         # 这一步非常关键：它假设文件路径包含父文件夹，且父文件夹名包含 PU 信息
-        1event_sim_label = Path(input).parent.name
-        1event_label, simulation_label = split_event_sim_label(event_sim_label)
-        1pu = get_event_details(event_label)[1]["pu"] # 获取 PU 值 (例如 200)
+        event_label = Path(input).parent.parent.name
+        # event_label, simulation_label = split_event_sim_label(event_sim_label)
+        pu = get_event_details(event_label)[1]["pu"] # 获取 PU 值 (例如 200)
 
         # 2. 读取 ROOT 文件中的 "vertexing" Tree
         # library="ak" 读取为 awkward array，然后转为 pandas DataFrame
