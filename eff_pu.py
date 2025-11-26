@@ -88,11 +88,8 @@ for input_type, inputs_list in inputs.items():
 
         # 2. 读取 ROOT 文件中的 "vertexing" Tree
         # library="ak" 读取为 awkward array，然后转为 pandas DataFrame
-        data = ak.to_dataframe(
-            uproot.open(input)["vertexing"].arrays(columns, library="ak"),
-            how="outer",
-        )
-
+    
+        data = uproot.open(input)["vertexing"].arrays(columns, library="pd")
         # 3. 数据筛选
         # 仅保留 Primary Vertex (主顶点) 且非 Secondary 的条目
         # 这通常是为了关注 Hard Scatter (HS) 顶点的重建情况
